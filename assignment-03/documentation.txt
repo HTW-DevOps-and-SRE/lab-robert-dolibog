@@ -1,0 +1,8 @@
+Git branching:
+I didnt have any problems completing the exercise. 
+I think the assignment was quite managable and fun this week.
+Due to me not having used git in a while it was quite refreshing and interesting to get back into Git/GitHub.
+In my remote repository I have included the PR rule for merging main. 
+Though I didnt include the required approval before merging. 
+I chose this, because I like to establish smaller changes that dont need the extra time. 
+
