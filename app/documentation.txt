@@ -1,0 +1,11 @@
+This document will be updated in future iterations of the project.
+
+
+Step one: creation of the basic webservice
+
+I found the first step to be equal parts interesting and difficult. 
+Even though I used a framework to make the webservice, I found it difficult to break into it.
+After I have gotten used to the syntax and logic of Flask it has gotten better and more interesting.
+Due to me not having enough time I couldnt properly figure out how to incorporate the json returns[get and post request] into the html textarea.
+But im sure I will figure this out by the next labs deadline.
+

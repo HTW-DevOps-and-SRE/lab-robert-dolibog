@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Webservice test
+        </title>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"> 
+    </head>
+    <body>
+        <h1>A website for testing Webservices</h1>
+        <p>
+            Hello World!
+        </p>
+        <form action="clicks" method="post">
+            <input type="submit" value="click!">
+        </form>
+        <form action="clicks" method="get">
+            <input type="submit" value="update!">
+        </form>
+        
+        <br>
+        {% for message in get_flashed_messages()%}              <!-- this syntax is used for the flask backend to communicate with the textarea through flashes  -->
+        <textarea readonly >
+            {{message}}                                         
+        </textarea>
+        {% endfor %}
+    </body>
+</html>
