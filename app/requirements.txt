@@ -1,0 +1,3 @@
+
+#defines the required frameworks
+Flask>=3.0.0

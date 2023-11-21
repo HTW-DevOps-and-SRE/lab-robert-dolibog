@@ -9,3 +9,10 @@ After I have gotten used to the syntax and logic of Flask it has gotten better a
 Due to me not having enough time I couldnt properly figure out how to incorporate the json returns[get and post request] into the html textarea.
 But im sure I will figure this out by the next labs deadline.
 
+Step two: Dockerrization
+
+In this exercise I started with rewriting the code to be more reader friendly and only use flask instead of flash and flask restful/API.
+The next step was incorporting the messages from the flask app into the html file and returning those. I achieved this by returning a render_template with my html
+to which I previously flashed the generated data.
+After the code was cleaned I worked out the Dockerfile to make the image.
+In conclusion I think this exercise was easier then the last one, but I still found it interesting and fun to figure out the docker syntax and make my app work externally.
