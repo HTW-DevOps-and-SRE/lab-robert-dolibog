@@ -24,4 +24,4 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: robertdolibog/app_docker:clickedclick:$GITHUB_SHA ./app
+        tags: robertdolibog/app_docker:clickedclick
