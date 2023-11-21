@@ -1,0 +1,28 @@
+name: Push Docker Image to Docker Hub
+
+on:
+  push:
+    branches:  
+        -main 
+        -workflow
+
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Out Repo
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: robertdolibog/app_docker:clickedclick:$GITHUB_SHA ./app
