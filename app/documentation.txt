@@ -18,6 +18,7 @@ After the code was cleaned I worked out the Dockerfile to make the image.
 In conclusion I think this exercise was easier then the last one, but I still found it interesting and fun to figure out the docker syntax and make my app work externally.
 
 Step three: Delivery Build
+
 In this exercise I started with adding github secrets to serve as a secure source for my DockerHub login credentials. 
 I then moved on to create the new workflows folder. Furthermore I added the .yml file for the workflow.
 The correct syntax for the yml file was not that hard to find and I found it to be easily navigated. 
