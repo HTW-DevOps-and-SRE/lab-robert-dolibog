@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+
+  web:
+    build: . #builds the dockerfile in the current directory
+    ports:
+      - 5000:5000
+    
+    depends_on: #makes sure to build the database before running the web service
+      - db  
+    environment:  
+      DATABASE_URL: "postgresql://robert:987654321@db:5432/mydb"  
+
+
+  db:
+    image: postgres:latest    
+    
+    ports:
+      - 5432:5432
+    volumes:
+      - dbdata:/var/lib/postgresql/data  
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: rober
+      POSTGRES_PASSWORD: 98765432
+
+volumes:
+  dbdata:  

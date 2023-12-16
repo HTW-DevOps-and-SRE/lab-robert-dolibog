@@ -23,3 +23,15 @@ I then moved on to create the new workflows folder. Furthermore I added the .yml
 The correct syntax for the yml file was not that hard to find and I found it to be easily navigated. 
 Thus the code is pretty simple and I added minimal documentation of the code, because most of the titles are self explainatory.
 In conclusion I found the exercise pretty simple and it didn't take me that long to establish.
+
+
+Step four: docker-compose:
+At first I want to exuse the late delivery of the assignment. I wanted to work on this assignment on Sunday of last week(10.12.23) 
+Unfortunately I developed a bronchitis and was bed bound. I used the week to get better, and I finally felt healty enough to complete the task today. 
+Now to come to the actual exercise. I first started with writing the docker-compose file. The file was quickly written, though I forgot to assign the ports. 
+Thus the webservice wouldnt start properly. The issue was found swiftly as I mentioned it in the lab. After that problem was finished I went on to refactor the html file
+to include java script logic for handling post and get requests. I mainly used the logic presented in the example file from the project of stephan lindner, as this was made
+an option in a previous exercise. This was done to make my code more structured and easier to read. Now to go on to the app.py file. I decided to use postgresql as my database,
+so I had to use some kind of handler which could write onto it. I decided to use sqlalchemy for this. Furthermore I added a timstamp class that would incorporate the data from the 
+websercie to the database. I then later wrote onto it and read from it the the coresponding POST and GET requests. 
+I found this exercise to be more difficult then the previous ones, but It was still interesting and I learned alot from it. 

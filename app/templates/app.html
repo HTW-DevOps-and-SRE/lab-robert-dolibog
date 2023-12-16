@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            Webservice test
-        </title>
-        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"> 
-    </head>
-    <body>
-        <h1>A website for testing Webservices</h1>
-        
-        <form action="clicks" method="post">
-            <input type="submit" value="click!">
-        </form>
-        <form action="clicks" method="get">
-            <input type="submit" value="update!">
-        </form>
-        
-        <br>
-        {% for message in get_flashed_messages()%}              <!-- this syntax is used for the flask backend to communicate with the textarea through flashes  -->
-        <textarea readonly >
-            {{message}}                                         
-        </textarea>
-        {% endfor %}
-    </body>
+
+<head>
+    <title>
+        Webservice test
+    </title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"> 
+</head>
+
+<body>
+    <h1>A website for testing Webservices</h1>
+
+    <button id="click_button">click!</button>
+    <button id="update_button">update!</button>
+    <textarea id="textarea" readonly></textarea>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const clickButton = document.getElementById('click_button');
+            const updateButton = document.getElementById('update_button');
+            const textArea = document.getElementById('textarea');
+
+            clickButton.addEventListener('click', function () {
+                fetch('/clicks', { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        textArea.value = JSON.stringify(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+
+            updateButton.addEventListener('click', function () {
+                fetch('/clicks', { method: 'GET' })
+                    .then(response => response.json())
+                    .then(data => {
+                        textArea.value = JSON.stringify(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
+</body>
+
 </html>
