@@ -1,3 +1,6 @@
 
 #defines the required frameworks
-Flask>=3.0.0
+Flask>=latest
+flask_SQLAlchemy
+SQLAlchemy
+psycopg2-binary
