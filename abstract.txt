@@ -1,0 +1,15 @@
+
+DevOps: Automated build and Testing Pipeline for a 3D Unity Project
+
+Abstract:
+
+This project aims to develop an automated build and testing pipeline for a large 3D Unity project, 
+made for the IMI showtime this semester. The Unity Project requires multiple gb of storage, due to a new 3D scanning method being used, 
+thus Git LFS enhancement is necessary. The central part of the project will be the
+Continuous Integration (CI) on a server, such as Jenkins, which will automate the Unity build 
+process using scripts that interact with Unity’s CLI. After the CI pipeline has executed the 
+process will go into automated tests to ensure the health of the build. This process will 
+streamline the development and maintain high quality builds. To further the streamlined 
+approach a branching workflow inspired by git flow will be put into place. 
+In the documentation I will go into detail about the challenges faced working the pipeline out, 
+and deploying a branching workflow in a team of 6.
