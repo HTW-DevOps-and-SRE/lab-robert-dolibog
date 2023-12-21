@@ -5,12 +5,18 @@ from flask import Flask, render_template, jsonify #i decided to use the flask fr
 from flask_sqlalchemy import SQLAlchemy
 import time
 import os
+import logging
 
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)  # creates a class for the app
 
+db_user = os.environ.get('POSTGRES_USER', 'rober')
+db_password = os.environ.get('POSTGRES_PASSWORD')  # Password should be set as an environment variable
+db_name = os.environ.get('POSTGRES_DB', 'mydatabase')
+db_host = 'postgres'  # Kubernetes service name for the database
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://robert:987654321@db:5432/mydb')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{db_user}:{db_password}@{db_host}:5432/{db_name}'
 
 
 db = SQLAlchemy(app)
@@ -28,7 +34,8 @@ def create_tables(): # Create function to create the tables
         db.create_all()
 
 
-create_tables() # call the function to create tables
+create_tables()
+
 
 
 
@@ -62,7 +69,7 @@ def get():
 
 
 if __name__ == '__main__': # handles errors / starts the debugger
-    app.run(debug=True)   
+    app.run(host='0.0.0.0', port=5000)  
 
 
 

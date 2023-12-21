@@ -1,5 +1,5 @@
 
-#defines the required frameworks
+
 Flask>=latest
 flask_SQLAlchemy
 SQLAlchemy
