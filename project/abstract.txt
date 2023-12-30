@@ -1,8 +1,8 @@
-
 DevOps: Automated build and Testing Pipeline for a 3D Unity Project
 
-Abstract:
 
+
+Abstract:
 This project aims to develop an automated build and testing pipeline for a large 3D Unity project, 
 made for the IMI showtime this semester. The Unity Project requires multiple gb of storage, due to a new 3D scanning method being used, 
 thus Git LFS enhancement is necessary. The central part of the project will be the
