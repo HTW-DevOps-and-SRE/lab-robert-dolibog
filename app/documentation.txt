@@ -59,6 +59,11 @@ wanted to implement this specific DB.
 
 
 Step six :
+Terraform:
 
-
-
+I started this assignment with creating the new directory terraform. This directory was used to house all .tf files needed for the provisioning of the kubernetes files.
+I wrote a provider file which initializes a kubernetes provider with the kubectl config file from minikube. This structure is then added upon by the other terraform files. 
+Those are all just rewritten and changed versions of their kubernetes manifest counterpart. The only changes made were to include correct syntax and deviate on some occasions to 
+fit. Overall, setting up the Terraform directory was a straightforward process and it helped streamline the management of the infrastructure code. However I found it to be relatively
+difficult to find my way arround the commands, and view some errors that arose. For example: I forgot to include the partition claim in my db-statefulset.tf file. Thus my containers couln't 
+communicate properly and werent initialized completely. The terraform commands we're still completed sucessfully, and I found it to be hard to track the damage down. 
