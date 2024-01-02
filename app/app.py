@@ -6,7 +6,6 @@ from flask_sqlalchemy import SQLAlchemy
 import time
 import os
 import logging
-from flask_migrate import Migrate
 
 logging.basicConfig(level=logging.INFO)
 
@@ -22,8 +21,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{db_user}:{db_password}@{
 
 db = SQLAlchemy(app)
 
-# Initialize Flask-Migrate used for possible changes
-migrate = Migrate(app, db)
+
 
 class Timestamp(db.Model): # Define the Timestamp model for the database
     id = db.Column(db.Integer, primary_key=True)
