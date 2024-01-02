@@ -36,3 +36,14 @@ an option in a previous exercise. This was done to make my code more structured 
 so I had to use some kind of handler which could write onto it. I decided to use sqlalchemy for this. Furthermore I added a timstamp class that would incorporate the data from the 
 websercie to the database. I then later wrote onto it and read from it the the coresponding POST and GET requests. 
 I found this exercise to be more difficult then the previous ones, but It was still interesting and I learned alot from it. 
+
+
+Step five_ Kubernetes hosting:
+07:
+To start I want to clarify that assignments 07 and 08 will be talked about in this part of my documentation as both adress the same topic. For the assignment 07 I wrote a small
+essay to go over the defined hosting options. I found this part to be pretty easy and fairly straight forward. I still gained a good overview of Kubernetes through this assigment,
+and my resulting research. The file can be found in the parent directory of my repository. To now come to the installation of minikube. For this part I followed the guidelines in 
+the minikube documentation and the kubctl documentation from the kubernetes website. I used shell commands to install both and appended a path variable for both, as Im using Windows.
+In conclusion I found this exersice to be relatively interesting and something different from the usual. 
+
+08:
