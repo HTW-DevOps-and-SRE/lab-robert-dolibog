@@ -2,5 +2,6 @@
 
 Flask>=latest
 flask_SQLAlchemy
+flask_migrate
 SQLAlchemy
 psycopg2-binary

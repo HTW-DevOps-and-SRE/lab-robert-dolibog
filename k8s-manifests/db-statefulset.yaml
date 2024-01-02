@@ -39,16 +39,3 @@ spec:
       resources:
         requests:
           storage: 10Gi
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgres
-spec:
-  ports:
-  - port: 5432
-  clusterIP: None
-  selector:
-    app: postgres
