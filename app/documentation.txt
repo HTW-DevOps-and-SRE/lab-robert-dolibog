@@ -36,3 +36,34 @@ an option in a previous exercise. This was done to make my code more structured 
 so I had to use some kind of handler which could write onto it. I decided to use sqlalchemy for this. Furthermore I added a timstamp class that would incorporate the data from the 
 websercie to the database. I then later wrote onto it and read from it the the coresponding POST and GET requests. 
 I found this exercise to be more difficult then the previous ones, but It was still interesting and I learned alot from it. 
+
+
+Step five_ Kubernetes:
+07:
+To start I want to clarify that assignments 07 and 08 will be talked about in this part of my documentation as both adress the same topic. For the assignment 07 I wrote a small
+essay to go over the defined hosting options. I found this part to be pretty easy and fairly straight forward. I still gained a good overview of Kubernetes through this assigment,
+and my resulting research. The file can be found in the parent directory of my repository. To now come to the installation of minikube. For this part I followed the guidelines in 
+the minikube documentation and the kubctl documentation from the kubernetes website. I used shell commands to install both and appended a path variable for both, as Im using Windows.
+In conclusion I found this exersice to be relatively interesting and something different from the usual. 
+
+08:
+To now go to the kubernetes deployment. As suggested I started with writing the nessessary yaml files in the subdirectory. To be more specific, I started ith writing the database files.
+I decided to split them up into a statefulset and a service file. At first I had both combined into one file, but considering clean and understandable coding procedure, I decided to split them up.
+The service file is very simple and only specifies the DB port. The statefulset was more complex than that. It defines the whole database as a statefulset. This assures that the data will be permanent
+and can be acessed when the service goes down. Further the file inhabits all the nessessary connection data, as well as claims and mounts the storage partition. Further a password secret is referenced
+for the DB access. This secret is initialized in a seperate file containing the password as a base64 encoded string, as this syntax is required, and makes it more secure. 
+The next step I took was to change the app.py file to be able to write/read to the newly added database pod. Furthermore I added a migration to the app in case the database shema /model needs to be changed in the future.
+As for the last step I added two yaml files for the web-service site of the application. In those I defined the replica count needed and connected it to the database, as well as put a load LoadBalancer into place. 
+In conclusion I found this exercise to be the most difficult so far, as it really challenged me to look into kubernetes in detail and figure out a way to make my postgres database work. This was an important aspect as I 
+wanted to implement this specific DB. 
+
+
+Step six :
+Terraform:
+
+I started this assignment with creating the new directory terraform. This directory was used to house all .tf files needed for the provisioning of the kubernetes files.
+I wrote a provider file which initializes a kubernetes provider with the kubectl config file from minikube. This structure is then added upon by the other terraform files. 
+Those are all just rewritten and changed versions of their kubernetes manifest counterpart. The only changes made were to include correct syntax and deviate on some occasions to 
+fit. Overall, setting up the Terraform directory was a straightforward process and it helped streamline the management of the infrastructure code. However I found it to be relatively
+difficult to find my way arround the commands, and view some errors that arose. For example: I forgot to include the partition claim in my db-statefulset.tf file. Thus my containers couln't 
+communicate properly and werent initialized completely. The terraform commands we're still completed sucessfully, and I found it to be hard to track the damage down. 

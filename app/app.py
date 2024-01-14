@@ -39,8 +39,6 @@ create_tables()
 
 
 
-
-
 @app.route('/') #establishes a general overwrite for the / url 
 def index():
   return render_template('app.html')# returns the html file to the local port
