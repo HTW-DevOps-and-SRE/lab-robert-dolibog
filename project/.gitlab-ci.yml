@@ -1,0 +1,111 @@
+stages:
+  - prepare
+  - build_and_test
+  #- deploy
+
+variables:
+  BUILD_NAME: B6_CI
+  UNITY_ACTIVATION_FILE: ./unity3d.alf
+  IMAGE: unityci/editor # https://hub.docker.com/r/unityci/editor
+  IMAGE_VERSION: 3 # This will automatically use latest v1.x.x, see https://github.com/game-ci/docker/releases
+  UNITY_DIR: $CI_PROJECT_DIR/B6_Scenes-final # this needs to be an absolute path. Defaults to the root of your tree.
+  CI_SCRIPTS_PATH: $CI_PROJECT_DIR/B6_Scenes-final/ci # Path to the ci folder containing scripts
+  VERSION_NUMBER_VAR: $CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID-$CI_JOB_ID
+  VERSION_BUILD_VAR: $CI_PIPELINE_IID
+ # BUILD_TARGET: StandaloneWindows64 # Example value, set this to your desired build target
+  UNITY_EXECUTABLE: C:/Program Files/Unity/Hub/Editor/2022.3.15f1/Editor/Unity.exe # This is the default value, change this if your project uses a custom name for the Unity executable
+
+image: $IMAGE:$UNITY_VERSION-base-$IMAGE_VERSION
+
+get-unity-version:
+  image: alpine
+  stage: prepare
+  variables:
+    GIT_DEPTH: 1
+  script:
+    - $unityVersionLine = Get-Content "$ENV:UNITY_DIR\\ProjectSettings\\ProjectVersion.txt" | Select-String "m_EditorVersion:.*"
+    - $unityVersion = ($unityVersionLine -split ' ')[1]
+    - echo "UNITY_VERSION=$unityVersion" | Out-File "$ENV:CI_SCRIPTS_PATH\\prepare.env"
+    - Get-Content "$ENV:CI_SCRIPTS_PATH\\prepare.env"  # To verify the content in the CI log
+  artifacts:
+    reports:
+      dotenv: "$ENV:CI_SCRIPTS_PATH\\prepare.env"
+
+.unity_before_script: &unity_before_script
+  before_script:
+    - pwsh -File "$ENV:CI_SCRIPTS_PATH\\before_script.ps1" # -BuildTarget $BUILD_TARGET  # Invoke the PowerShell script with its full path
+
+.cache: &cache
+  cache:
+    key: "$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG-$TEST_PLATFORM"
+    paths:
+      - $UNITY_DIR/Library/
+      - $UNITY_DIR/Assets/AvatarAnimations
+      - $UNITY_DIR/Assets/AvatarModels
+      - $UNITY_DIR/Assets/Brick Project Studio
+      - $UNITY_DIR/Assets/Oculus
+      - $UNITY_DIR/Assets/RetroLamps
+      - $UNITY_DIR/Assets/SciFi Warehouse Kit
+      - $UNITY_DIR/Assets/SocketsAndSwitches
+      - $UNITY_DIR/Assets/Sounds
+      - $UNITY_DIR/Assets/YughuesFreeMetalMaterials
+
+.license: &license
+  rules:
+    - if: '$UNITY_LICENSE != null'
+      when: always
+
+.unity_defaults: &unity_defaults
+  <<: 
+    - *unity_before_script
+    - *cache
+    - *license
+get-activation-file:
+  <<: *unity_before_script
+  rules:
+    - if: '$UNITY_LICENSE == null'
+      when: manual
+  stage: prepare
+  script:
+    - pwsh -File "$ENV:CI_SCRIPTS_PATH\\get_activation_file.ps1" -UnityUsername $UNITY_USERNAME -UnityPassword $UNITY_PASSWORD -UnityLicense $UNITY_LICENSE
+  artifacts:
+    paths:
+      - "$ENV:CI_SCRIPTS_PATH\\$UNITY_ACTIVATION_FILE"
+    expire_in: 10 min
+
+.build: &build
+  stage: build_and_test
+  <<: *unity_defaults
+  script:
+    - pwsh -File "$ENV:CI_SCRIPTS_PATH\\build.ps1"
+  artifacts:
+    paths:
+      - $UNITY_DIR/StandaloneWindows64B6_CI.exe
+      - $CI_PROJECT_DIR/UnityBuild.log
+  tags:
+    - gitlab-org
+
+build-StandaloneWindows64:
+  <<: *build
+  image: $IMAGE:$UNITY_VERSION-windows-mono-$IMAGE_VERSION
+  variables:
+    BUILD_TARGET: StandaloneWindows64
+
+#pages:
+#  image: alpine:latest
+#  stage: deploy
+#  script:
+#    - Move-Item "$UNITY_DIR\\Builds\\WebGL\\${BUILD_NAME}" public
+#  artifacts:
+#    paths:
+#      - public
+#  only:
+#    - $CI_DEFAULT_BRANCH
+
+workflow:
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: never
+    - when: always
